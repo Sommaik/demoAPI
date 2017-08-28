@@ -1,5 +1,11 @@
 {
     "Config": {
+        "auth": {
+            "jwtSecret": "MyS3cr3tK3Y",
+            "jwtSession": {
+                "session": false
+            }
+        },
         "mongodbUrl": "mongodb://localhost:27017/issuedb"
     }
 }

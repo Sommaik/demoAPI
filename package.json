@@ -18,6 +18,9 @@
     "config": "^1.26.2",
     "cors": "^2.8.4",
     "express": "^4.15.4",
-    "mongodb": "^2.2.31"
+    "jwt-simple": "^0.5.1",
+    "mongodb": "^2.2.31",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0"
   }
 }
