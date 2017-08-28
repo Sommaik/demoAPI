@@ -4,6 +4,8 @@ import * as cors from 'cors';
 import * as auth from './helpers/auth';
 
 import { CompanyController } from './controllers/company';
+import { LoginController } from './controllers/login';
+import { UserController } from './controllers/user';
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -19,6 +21,8 @@ app.use(bodyParser.urlencoded({
 app.use(auth.initialize());
 
 app.use('/company', CompanyController);
+app.use('/user', UserController);
+app.use('/login', LoginController);
 
 // Serve the application at the given port
 app.listen(port, () => {

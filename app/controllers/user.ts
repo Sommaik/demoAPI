@@ -14,4 +14,10 @@ router.post('/', (req: Request, res: Response) => {
     });
 });
 
+router.get('/', (req: Request, res: Response) => {
+    mongodb.collection("user").find().toArray().then((data) => {
+        res.json(data);
+    });
+});
+
 export const UserController: Router = router;
