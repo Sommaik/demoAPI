@@ -1,12 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { MongoClient, ObjectID } from 'mongodb';
 import * as myConfig from 'config';
+import { mongodb } from '../helpers/mongodb';
 
 let config: any = myConfig.get('Config');
 
-// Assign router to the express.Router() instance
 const router: Router = Router();
-var mongodb;
 
 router.get('/', (req: Request, res: Response) => {
     mongodb.collection("company").find().toArray().then((data) => {
@@ -70,11 +69,4 @@ router.post('/search', (req: Request, res: Response) => {
         });
 });
 
-MongoClient.connect(config.mongodbUrl, (err, db) => {
-    if (err) {
-        console.log(err);
-    } else {
-        mongodb = db;
-    }
-});
 export const CompanyController: Router = router;
