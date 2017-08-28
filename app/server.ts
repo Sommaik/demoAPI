@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import * as auth from './helpers/auth';
 
 import { CompanyController } from './controllers/company';
 
@@ -15,10 +16,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(auth.initialize());
+
 app.use('/company', CompanyController);
 
 // Serve the application at the given port
 app.listen(port, () => {
-    // Success callback
-    console.log(`Listening at http://localhost:${port}/`);
+  // Success callback
+  console.log(`Listening at http://localhost:${port}/`);
 });
