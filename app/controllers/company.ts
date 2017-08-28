@@ -2,10 +2,13 @@ import { Router, Request, Response } from 'express';
 import { MongoClient, ObjectID } from 'mongodb';
 import * as myConfig from 'config';
 import { mongodb } from '../helpers/mongodb';
+import * as auth from '../helpers/auth';
 
 let config: any = myConfig.get('Config');
 
 const router: Router = Router();
+
+router.use(auth.authenticate());
 
 router.get('/', (req: Request, res: Response) => {
     mongodb.collection("company").find().toArray().then((data) => {
