@@ -3,6 +3,7 @@ import { MongoClient, ObjectID } from 'mongodb';
 import * as myConfig from 'config';
 import { mongodb } from '../helpers/mongodb';
 import * as multer from 'multer';
+var fs = require('fs');
 
 let config: any = myConfig.get('Config');
 
@@ -17,7 +18,7 @@ var storage = multer.diskStorage({
     }
 })
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 router.post('/', (req: Request, res: Response) => {
     let data = req.body;
@@ -50,6 +51,17 @@ router.put('/:id', (req: Request, res: Response) => {
 router.post('/profile/:id', upload.single('avatar'), (req: Request, res: Response) => {
     console.log(req.body);
     res.json('success');
+});
+
+router.get('/profile/:id', (req: Request, res: Response) => {
+    fs.readFile(`uploads/${req.params.id}`, (err, data) => {
+        if (!err) {
+            res.write(data);
+            res.end();
+        } else {
+            res.end();
+        }
+    });
 });
 
 
