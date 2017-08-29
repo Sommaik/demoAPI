@@ -6,6 +6,7 @@
                 "session": false
             }
         },
-        "mongodbUrl": "mongodb://localhost:27017/issuedb"
+        "mongodbUrl": "mongodb://localhost:27017/issuedb",
+        "uploadPath": "/Users/sommaik/Workspace/tiew_train/data/"
     }
 }
