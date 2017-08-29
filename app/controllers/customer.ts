@@ -12,14 +12,14 @@ const router: Router = Router();
 router.use(auth.authenticate());
 
 router.get('/', (req: Request, res: Response) => {
-    mongodb.collection("company").find().toArray().then((data) => {
+    mongodb.collection("customer").find().toArray().then((data) => {
         res.json(data);
     });
 });
 
 router.get('/findById/:id', (req: Request, res: Response) => {
     let id = new ObjectID(req.params.id);
-    mongodb.collection("company").findOne({ _id: id })
+    mongodb.collection("customer").findOne({ _id: id })
         .then((data) => {
             res.json(data);
         }
@@ -28,14 +28,14 @@ router.get('/findById/:id', (req: Request, res: Response) => {
 
 router.post('/', (req: Request, res: Response) => {
     let data = req.body;
-    mongodb.collection("company").insertOne(data).then((data) => {
+    mongodb.collection("customer").insertOne(data).then((data) => {
         res.json(data);
     });
 });
 
 router.delete('/:id', (req: Request, res: Response) => {
     let id = new ObjectID(req.params.id);
-    mongodb.collection("company").deleteOne({ _id: id }).then((data) => {
+    mongodb.collection("customer").deleteOne({ _id: id }).then((data) => {
         res.json(data);
     });
 });
@@ -43,43 +43,18 @@ router.delete('/:id', (req: Request, res: Response) => {
 router.put('/:id', (req: Request, res: Response) => {
     let id = new ObjectID(req.params.id);
     let data = req.body;
-    mongodb.collection("company").updateOne({ _id: id }, data).then((data) => {
+    mongodb.collection("customer").updateOne({ _id: id }, data).then((data) => {
         res.json(data);
     });
-});
-
-router.post('/search', (req: Request, res: Response) => {
-    let ret = {
-        rows: [],
-        total: 0
-    };
-    let data = req.body;
-    mongodb.collection("company").find(
-        {
-            compName: new RegExp(`${data.searchText}`)
-        }
-    ).skip(data.numPage * data.rowPerPage)
-        .limit(data.rowPerPage)
-        .toArray().then((rows) => {
-            ret.rows = rows;
-            mongodb.collection("company").find(
-                {
-                    compName: new RegExp(`${data.searchText}`)
-                }
-            ).count().then((data) => {
-                ret.total = data;
-                res.json(ret);
-            })
-        });
 });
 
 router.post('/find', (req: Request, res: Response) => {
     let data = req.body;
     async.parallel([
         function (callback) {
-            mongodb.collection("company").find(
+            mongodb.collection("customer").find(
                 {
-                    compName: new RegExp(`${data.searchText}`)
+                    custName: new RegExp(`${data.searchText}`)
                 }
             ).skip(data.numPage * data.rowPerPage)
                 .limit(data.rowPerPage)
@@ -88,9 +63,9 @@ router.post('/find', (req: Request, res: Response) => {
                 });
         },
         function (callback) {
-            mongodb.collection("company").find(
+            mongodb.collection("customer").find(
                 {
-                    compName: new RegExp(`${data.searchText}`)
+                    custName: new RegExp(`${data.searchText}`)
                 }
             ).count().then((data) => {
                 callback(null, data);
@@ -106,4 +81,4 @@ router.post('/find', (req: Request, res: Response) => {
         });
 });
 
-export const CompanyController: Router = router;
+export const CustomerController: Router = router;
