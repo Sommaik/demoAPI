@@ -3,6 +3,7 @@ import { MongoClient, ObjectID } from 'mongodb';
 import * as myConfig from 'config';
 import { mongodb } from '../helpers/mongodb';
 import * as auth from '../helpers/auth';
+import * as async from 'async';
 
 let config: any = myConfig.get('Config');
 
@@ -69,6 +70,39 @@ router.post('/search', (req: Request, res: Response) => {
                 ret.total = data;
                 res.json(ret);
             })
+        });
+});
+
+router.post('/find', (req: Request, res: Response) => {
+    let ret = {
+        rows: [],
+        total: 0
+    };
+    let data = req.body;
+    async.parallel([
+        function (callback) {
+            mongodb.collection("company").find(
+                {
+                    compName: new RegExp(`${data.searchText}`)
+                }
+            ).skip(data.numPage * data.rowPerPage)
+                .limit(data.rowPerPage)
+                .toArray().then((rows) => {
+                    callback(null, rows);
+                });
+        },
+        function (callback) {
+            mongodb.collection("company").find(
+                {
+                    compName: new RegExp(`${data.searchText}`)
+                }
+            ).count().then((data) => {
+                callback(null, data);
+            })
+        }
+    ],
+        function (err, results) {
+            res.json(results);
         });
 });
 
