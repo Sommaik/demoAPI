@@ -20,6 +20,21 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
+router.post('/profile/:id', upload.single('avatar'), (req: Request, res: Response) => {
+    res.json('success');
+});
+
+router.get('/profile/:id', (req: Request, res: Response) => {
+    fs.readFile(`${config.uploadPath}${req.params.id}`, (err, data) => {
+        if (!err) {
+            res.write(data);
+            res.end();
+        } else {
+            res.end();
+        }
+    });
+});
+
 router.post('/', (req: Request, res: Response) => {
     let data = req.body;
     mongodb.collection("user").insertOne(data).then((data) => {
@@ -48,21 +63,6 @@ router.put('/:id', (req: Request, res: Response) => {
     });
 });
 
-router.post('/profile/:id', upload.single('avatar'), (req: Request, res: Response) => {
-    console.log(req.body);
-    res.json('success');
-});
-
-router.get('/profile/:id', (req: Request, res: Response) => {
-    fs.readFile(`uploads/${req.params.id}`, (err, data) => {
-        if (!err) {
-            res.write(data);
-            res.end();
-        } else {
-            res.end();
-        }
-    });
-});
 
 
 export const UserController: Router = router;
