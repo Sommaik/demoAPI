@@ -66,6 +66,15 @@ router.put('/:id', (req: Request, res: Response) => {
     });
 });
 
+router.get('/findById/:id', (req: Request, res: Response) => {
+    let id = new ObjectID(req.params.id);
+    mongodb.collection("user").findOne({ _id: id })
+        .then((data) => {
+            res.json(data);
+        }
+        );
+});
+
 
 
 export const UserController: Router = router;
