@@ -21,7 +21,9 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 router.post('/profile/:id', upload.single('avatar'), (req: Request, res: Response) => {
-    res.json('success');
+    res.json({
+        success:true
+    });
 });
 
 router.get('/profile/:id', (req: Request, res: Response) => {
@@ -37,7 +39,8 @@ router.get('/profile/:id', (req: Request, res: Response) => {
 
 router.post('/', (req: Request, res: Response) => {
     let data = req.body;
-    mongodb.collection("user").insertOne(data).then((data) => {
+    mongodb.collection("user").insert(data).then((result) => {
+       console.dir(data);
         res.json(data);
     });
 });
