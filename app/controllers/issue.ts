@@ -123,4 +123,17 @@ router.get('/attach/:folderName',
     });
 });
 
+router.get('/view-attach/:folderName/:fileName', (req: Request, res: Response) => {
+    fs.readFile(
+    `${config.uploadPath}${req.params.folderName}/${req.params.fileName}`
+        , (err, data) => {
+        if (!err) {
+            res.write(data);
+            res.end();
+        } else {
+            res.end();
+        }
+    });
+});
+
 export const IssueController:Router=router;
