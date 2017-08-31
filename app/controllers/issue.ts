@@ -11,6 +11,7 @@ let config: any = myConfig.get('Config');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
+        console.log(config.uploadPath+req.params.folderName);
         let folder = config.uploadPath+req.params.folderName;
         if(!fs.existsSync(folder)){
             fs.mkdirSync(folder);
@@ -18,7 +19,7 @@ var storage = multer.diskStorage({
         cb(null, folder);
     },
     filename: function (req, file, cb) {
-        cb(null, file.filename);
+        cb(null, file.originalname);
     }
 })
 
