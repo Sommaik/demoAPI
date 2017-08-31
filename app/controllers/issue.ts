@@ -5,9 +5,11 @@ import * as shortid from 'shortid';
 import * as multer from 'multer';
 import * as fs from 'fs';
 import * as myConfig from 'config';
+var mailer = require("nodemailer");
 
 const router: Router = Router();
 let config: any = myConfig.get('Config');
+var smtpTransport = mailer.createTransport(config.smtp);
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -55,7 +57,22 @@ router.post('/', (req: Request, res: Response) => {
     let data = req.body;
     data.no = shortid.generate();
     mongodb.collection("issue").insert(data).then((data) => {
-        res.json(data);
+        var mail = {
+            to: 'sommai.k@gmail.com',
+            subject: `Your issue no ${data.no}`,
+            html: `
+                <h4>Your issue no ${data.no}</h4>
+                <b>Thank your</b>
+            `
+        }
+        smtpTransport.sendMail(mail, (error, response) => {
+            smtpTransport.close();
+            if (error) {
+                res.json(error);
+            } else {
+                res.json(data);
+            }
+        });
     });
     //res.json(req.body);
 });
@@ -122,7 +139,7 @@ router.get('/attach/:folderName',
             fs.readdir(folder, (err, files) => {
                 res.json(files);
             });
-        }else{
+        } else {
             res.json([]);
         }
     });
