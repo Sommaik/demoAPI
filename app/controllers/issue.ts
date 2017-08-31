@@ -1,8 +1,28 @@
 import {Router,Request,Response} from 'express';
 import {MongoClient,ObjectID} from 'mongodb';
 import { mongodb } from '../helpers/mongodb';
+import * as shortid from 'shortid';
+import * as multer from 'multer';
+import * as fs from 'fs';
+import * as myConfig from 'config';
 
 const router:Router=Router();
+let config: any = myConfig.get('Config');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        let folder = config.uploadPath+req.params.folderName;
+        if(!fs.existsSync(folder)){
+            fs.mkdirSync(folder);
+        }
+        cb(null, folder);
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.filename);
+    }
+})
+
+var upload = multer({ storage: storage });
 
 router.get('/',  (req:Request, res:Response) => {
     mongodb.collection("issue").find().toArray().then((data)=> {
@@ -32,7 +52,8 @@ router.post('/',  (req:Request, res:Response) => {
     //ข้อมูลที่ได้มากจากการ post จะเป็น req.body
     //insert into mongodb from post in postman
     let data=req.body;
-    mongodb.collection("issue").insertOne(data).then((data)=>{
+    data.no = shortid.generate();
+    mongodb.collection("issue").insert(data).then((data)=>{
         res.json(data);
     });
     //res.json(req.body);
@@ -82,6 +103,22 @@ router.put('/:id',  (req:Request, res:Response) => {
     let data=req.body;
     mongodb.collection("issue").updateOne({_id : id},data).then((data)=>{
         res.json(data);
+    });
+});
+
+router.post('/attach/:folderName', 
+    upload.single('attach'),
+    (req:Request, res:Response)=>{
+    res.json({
+        success: true
+    });
+});
+
+router.get('/attach/:folderName',
+    (req:Request, res:Response)=>{
+    let folder = config.uploadPath+req.params.folderName; 
+    fs.readdir(folder, (err, files)=>{
+        res.json(files);
     });
 });
 
