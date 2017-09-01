@@ -4,12 +4,13 @@ import * as myConfig from 'config';
 import { mongodb } from '../helpers/mongodb';
 import * as auth from '../helpers/auth';
 import * as async from 'async';
+import * as xl from 'excel4node';
 
 let config: any = myConfig.get('Config');
 
 const router: Router = Router();
 
-router.use(auth.authenticate());
+// router.use(auth.authenticate());
 
 router.get('/', (req: Request, res: Response) => {
     mongodb.collection("company").find().toArray().then((data) => {
@@ -104,6 +105,20 @@ router.post('/find', (req: Request, res: Response) => {
             };
             res.json(ret);
         });
+});
+
+router.get('/excel', (req: Request, res: Response)=>{
+    var wb = new xl.Workbook();
+    var ws = wb.addWorksheet('Sheet 1');
+    ws.cell(1, 1).string("Reconcile report")
+              .style({
+                  font: {
+                     bold : true
+                  }
+            });
+    wb.write("test.xlsx", (error, result)=>{
+        res.download("test.xlsx");
+    });
 });
 
 export const CompanyController: Router = router;

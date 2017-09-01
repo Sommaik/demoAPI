@@ -20,6 +20,7 @@
     "body-parser": "^1.17.2",
     "config": "^1.26.2",
     "cors": "^2.8.4",
+    "excel4node": "^1.2.1",
     "express": "^4.15.4",
     "jwt-simple": "^0.5.1",
     "mongodb": "^2.2.31",

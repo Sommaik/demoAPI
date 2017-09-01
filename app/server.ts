@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as auth from './helpers/auth';
 
-import { CompanyController } from './controllers/postgres/company';
+import { CompanyController } from './controllers/company';
 import { LoginController } from './controllers/login';
 import { UserController } from './controllers/user';
 import { CustomerController } from './controllers/customer';
