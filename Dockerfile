@@ -16,6 +16,6 @@ WORKDIR /api-app
 COPY . .
 
 ## Build the angular app in production mode and store the artifacts in dist folder
-RUN $(npm bin)/npm start
+RUN npm start
 
 EXPOSE 3000
