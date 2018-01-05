@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { mongodb } from '../helpers/mongoDB';
+import { mongodb } from '../helpers/mongodb';
 import * as myConfig from 'config';
 
 let config: any = myConfig.get('Config');
