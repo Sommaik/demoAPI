@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/server",
+    "start": "NODE_ENV=production node ./build/server",
     "prestart": "tsc -p .",
     "test": "node test"
   },
