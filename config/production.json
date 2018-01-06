@@ -11,7 +11,7 @@
         "smtp": {
             "host": "smtp.gmail.com",
             "port": 465,
-            "secure": true, // use SSL
+            "secure": true,
             "auth": {
                 "user": "www.saleagent@gmail.com",
                 "pass": "www.saleagent1234"
