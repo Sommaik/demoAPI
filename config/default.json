@@ -6,13 +6,13 @@
                 "session": false
             }
         },
-        "mongodbUrl": "mongodb://localhost:27017/issuedb",
+        "mongodbUrl": "mongodb://mongodb:27017/issuedb",
         "postgresUrl": "postgres://isadmin:isadmin@localhost:5432/issue",
         "uploadPath": "/Users/sommaik/Workspace/tiew_train/data/",
         "smtp": {
             "host": "smtp.gmail.com",
             "port": 465,
-            "secure": true, // use SSL
+            "secure": true,
             "auth": {
                 "user": "www.saleagent@gmail.com",
                 "pass": "www.saleagent1234"
