@@ -1,0 +1,102 @@
+{
+	"id": "fb1a249a-c349-3828-bdbb-968d2bb00f04",
+	"name": "CAT",
+	"description": "",
+	"order": [
+		"90d82442-6f1a-fed6-d057-b06671adc0ec",
+		"9a8265d3-18bb-38da-bebc-bb81f24be74d",
+		"0edc7cf5-1f4b-0b20-83b0-cc2346d8b505"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1515483633959,
+	"owner": "1255970",
+	"public": false,
+	"requests": [
+		{
+			"id": "0edc7cf5-1f4b-0b20-83b0-cc2346d8b505",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:3000/user",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "fb1a249a-c349-3828-bdbb-968d2bb00f04",
+			"data": null,
+			"dataMode": "params",
+			"name": "read user",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1515483783669,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "90d82442-6f1a-fed6-d057-b06671adc0ec",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/user",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "fb1a249a-c349-3828-bdbb-968d2bb00f04",
+			"data": [],
+			"dataMode": "raw",
+			"name": "create User",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1515483646188,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\" : \"admin@test.com\",\n\t\"password\" : \"admin\"\n}"
+		},
+		{
+			"id": "9a8265d3-18bb-38da-bebc-bb81f24be74d",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/login/doLogin",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "fb1a249a-c349-3828-bdbb-968d2bb00f04",
+			"data": [],
+			"dataMode": "raw",
+			"name": "doLogin",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1515483749169,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\" : \"admin@test.com\",\n\t\"password\" : \"admin\"\n}"
+		}
+	]
+}
