@@ -1,7 +1,7 @@
 {
   "name": "issueapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "test package json",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node ./build/server",
