@@ -6,8 +6,8 @@
                 "session": false
             }
         },
-        "mongodbUrl": "mongodb://mongodb:27017/issuedb",
-        "uploadPath": "/Users/sommaik/Workspace/tiew_train/data/",
+        "mongodbUrl": "mongodb://192.168.33.10:27017/issuedb",
+        "uploadPath": "/home/vagrant/data/",
         "smtp": {
             "host": "smtp.gmail.com",
             "port": 465,
