@@ -31,6 +31,6 @@
     "passport-jwt": "^3.0.0",
     "pg": "^7.2.0",
     "shortid": "^2.2.8",
-    "socket.io": "^2.0.3"
+    "socket.io": "^3.0.0"
   }
 }
